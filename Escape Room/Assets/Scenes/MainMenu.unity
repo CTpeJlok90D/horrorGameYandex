@@ -1160,7 +1160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70f60a88bbc437479b5c298496e79a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listener: {fileID: 379059991}
 --- !u!1 &380211006
 GameObject:
   m_ObjectHideFlags: 0
@@ -7895,6 +7894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df7d48e804d8ae47bb0e8ad9a9ff29e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isMobileDevice: 0
   _data:
     SelectedDifficult: 2
     MouseSensivity: 0.25
