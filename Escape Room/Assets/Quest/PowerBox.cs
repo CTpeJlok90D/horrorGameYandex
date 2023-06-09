@@ -49,7 +49,7 @@ public class PowerBox : MonoBehaviour
 		_interacteble.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		while (info.Container.ContainItem(_requestItem))
 		{

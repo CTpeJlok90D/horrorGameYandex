@@ -18,7 +18,7 @@ public class WorldBookItems : MonoBehaviour
 		_interacteble.Interacted.AddListener(OnInteract);
 	}
 
-	public void OnInteract(Interacteble sender, PlayerInfo info)
+	public void OnInteract(Interacteble sender, InteractContext info)
 	{
 		info.BookThower.AddBook(_bookVariants[Random.Range(0, _bookVariants.Count)]);
 		if (_removeAfterTake)

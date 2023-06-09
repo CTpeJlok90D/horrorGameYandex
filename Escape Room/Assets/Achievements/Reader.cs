@@ -21,7 +21,7 @@ public class Reader : MonoBehaviour
 			note.Interacted.RemoveListener(OnInteract);
 		}
 	}
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		_notes.Remove(sender);
 		if (_notes.Count == 0)

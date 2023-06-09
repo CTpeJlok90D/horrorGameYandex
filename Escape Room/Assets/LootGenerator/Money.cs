@@ -16,7 +16,7 @@ public class Money : MonoBehaviour
 		_interacteble.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		int amout = Random.Range(_amoutRange[0], _amoutRange[1] + 1);
 		PlayerDataContainer.Instance.CoinCount.Value += amout;

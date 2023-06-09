@@ -37,7 +37,7 @@ public class PlayerInteract : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, _interactDistance) && hit.collider.TryGetComponent(out Interacteble interacteble))
         {
-            PlayerInfo info = new PlayerInfo()
+            InteractContext info = new InteractContext()
             {
                 PlayerMovement = _movement,
                 NoteView = _noteView,
@@ -57,7 +57,7 @@ public class PlayerInteract : MonoBehaviour
     }
 }
 
-public struct PlayerInfo
+public struct InteractContext
 {
 	public PlayerMovement PlayerMovement;
 	public ExmindedObjectShower NoteView;

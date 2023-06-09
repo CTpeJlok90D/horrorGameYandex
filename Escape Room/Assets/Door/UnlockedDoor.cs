@@ -14,7 +14,7 @@ public class UnlockedDoor : Door
 		_doorHandle.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		if (IsOpen)
 		{

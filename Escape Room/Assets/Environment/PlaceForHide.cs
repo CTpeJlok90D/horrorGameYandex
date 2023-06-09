@@ -31,7 +31,7 @@ public class PlaceForHide : MonoBehaviour
 		_interacteble.Interacted.RemoveListener(Interact);
 	}
 
-	private void Interact(Interacteble sender, PlayerInfo info)
+	private void Interact(Interacteble sender, InteractContext info)
 	{
 		if (PlayerInside) FreePlayer();
 		else HidePlayer(info.PlayerMovement, info.Character);

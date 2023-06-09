@@ -45,7 +45,7 @@ public class CodeDoor : MonoBehaviour
 		}
 	}
 
-	private void OnIneract(Interacteble sender, PlayerInfo info)
+	private void OnIneract(Interacteble sender, InteractContext info)
 	{
 		if (_door.IsOpen)
 		{

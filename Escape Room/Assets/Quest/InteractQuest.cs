@@ -16,7 +16,7 @@ public class InteractQuest : Quest
 		_interacteble.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		Complete();
 	}

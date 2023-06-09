@@ -4,12 +4,12 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class Interacteble : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<Interacteble,PlayerInfo> _onInteract;
+    [SerializeField] private UnityEvent<Interacteble,InteractContext> _onInteract;
     public bool CanInteract = true;
 
-    public UnityEvent<Interacteble,PlayerInfo> Interacted => _onInteract;
+    public UnityEvent<Interacteble,InteractContext> Interacted => _onInteract;
 
-    public void Interact(PlayerInfo info)
+    public void Interact(InteractContext info)
     {
         if (CanInteract == false)
         {

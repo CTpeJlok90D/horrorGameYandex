@@ -19,7 +19,7 @@ public class ClosedDoor : MonoBehaviour
 		_doorHandle.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		if (info.Container.ContainItem(_key) == false)
 		{

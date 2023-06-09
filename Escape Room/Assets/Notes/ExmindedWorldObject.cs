@@ -18,7 +18,7 @@ public class ExmindedWorldObject : MonoBehaviour
 		_interactZone.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		info.NoteView.ShowNote(_exmindPefab, _lookStopped);
 	}

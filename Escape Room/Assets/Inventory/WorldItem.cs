@@ -15,7 +15,7 @@ public class WorldItem : MonoBehaviour
 		_interactZone.Interacted.RemoveListener(OnInteract);
 	}
 
-	private void OnInteract(Interacteble sender, PlayerInfo info)
+	private void OnInteract(Interacteble sender, InteractContext info)
 	{
 		info.Container.AddItem(_source);
 		Destroy(this.gameObject);
