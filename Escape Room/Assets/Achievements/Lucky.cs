@@ -21,7 +21,7 @@ public class Lucky : MonoBehaviour
 	private void OnNewDay()
 	{
 		_deaths++;
-		if (_deaths >= 2 && _line.CurrentQuest == _firstQuests)
+		if (_deaths >= _requestToAhievement && _line.CurrentQuest == _firstQuests)
 		{
 			PlayerDataContainer.Instance.AddAchievement(_achievement);
 		}

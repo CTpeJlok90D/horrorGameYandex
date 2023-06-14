@@ -36,8 +36,8 @@ public class UnlockHintButton : MonoBehaviour
 #if UNITY_EDITOR
 		if (Application.IsPlaying(gameObject) == false)
 		{
-			_button = GetComponent<Button>();
-			_costCaption = GetComponent<TMP_Text>();
+			_button ??= GetComponent<Button>();
+			_costCaption ??= GetComponent<TMP_Text>();
 		}
 #endif
 		_costCaption.text = _cost.ToString();

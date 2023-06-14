@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class HintCountLoader : MonoBehaviour
 {
 	[SerializeField] private TMP_Text _text;
 	[SerializeField] private QuestLine _line;
+	[SerializeField] private Window _byhintsWindow;
 
 	[SerializeField] private TitleView _titleView;
 	[SerializeField] private string _hintUseTitle = "<Title>";
@@ -15,11 +15,13 @@ public class HintCountLoader : MonoBehaviour
 	private void OnEnable()
 	{
 		InputSingletone.Instance.PlayerMovement.UseHint.started += UseHint;
+		PlayerDataContainer.Instance.HintCount.Changed.AddListener(UpdateHintCount);
 	}
 
 	private void OnDisable()
 	{
 		InputSingletone.Instance.PlayerMovement.UseHint.started -= UseHint;
+		PlayerDataContainer.Instance.HintCount.Changed.RemoveListener(UpdateHintCount);
 	}
 
 	private void Awake()
@@ -27,7 +29,8 @@ public class HintCountLoader : MonoBehaviour
 		UpdateHintCount();
 	}
 
-	private void UpdateHintCount()
+	public void UpdateHintCount(int value) => UpdateHintCount();
+	public void UpdateHintCount()
 	{
 		_text.text = PlayerDataContainer.Instance.HintCount.Value.ToString();
 	}
@@ -39,6 +42,10 @@ public class HintCountLoader : MonoBehaviour
 
 	public void UseHint()
 	{
+		if (PlayerDataContainer.Instance.HintCount.Value == 0)
+		{
+			_byhintsWindow.Open();
+		}
 		if (PlayerDataContainer.Instance.HintCount.Value > 0)
 		{
 			PlayerDataContainer.Instance.HintCount.Value--;
