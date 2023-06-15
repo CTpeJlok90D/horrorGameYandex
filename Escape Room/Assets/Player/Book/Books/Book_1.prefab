@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8069183028292606554}
   - component: {fileID: 4147800232411937156}
   - component: {fileID: 5716959267784702937}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Book_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 3441448206274324876, guid: cd3c164cae1bcb841a0a61cec16ffe17,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6507650872939172976, guid: cd3c164cae1bcb841a0a61cec16ffe17,
         type: 3}

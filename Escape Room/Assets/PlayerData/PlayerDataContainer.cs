@@ -1,14 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerDataContainer : MonoBehaviour
+public class PlayerDataContainer : Init
 {
-	[SerializeField] private bool _isMobileDevice = true;
 	private static PlayerDataContainer _instance;
 	private UnityEvent<Achievement> _achievementAdded = new();
 	private UnityEvent<PlayerData.Difficult> _unlockedDifficult = new();
 
-	public bool IsMobileDevise => _isMobileDevice;
+	public bool IsMobileDevise => mobile;
 	public UnityEvent<Achievement> AchievementAdded => _achievementAdded;
 	public UnityEvent<PlayerData.Difficult> UnlockedDifficult => _unlockedDifficult;
 	public ReactiveVariable<PlayerData.Difficult> SelectedDifficult { get; private set; }
@@ -18,39 +18,38 @@ public class PlayerDataContainer : MonoBehaviour
 	public ReactiveVariable<int> HintCount { get; private set; }
 	public ReactiveVariable<bool> IsFirstPlay { get; private set; }
 
-	public string[] UnlockedAchievemetns => _data.UnlockedAchievemetns.ToArray();
-	public PlayerData.Difficult[] UnlockedDifficultsArray => _data.UnlockedDifficults.ToArray();
+	public string[] UnlockedAchievemetns => playerData.UnlockedAchievemetns.ToArray();
+	public PlayerData.Difficult[] UnlockedDifficultsArray => playerData.UnlockedDifficults.ToArray();
 	
-
-	[SerializeField] private PlayerData _data = new();
 
 	public static bool HaveInstance() => _instance != null;
 	public static PlayerDataContainer Instance => _instance;
 
 	public void AddDifficult(PlayerData.Difficult difficult)
 	{
-		if (_data.UnlockedDifficults.Contains(difficult))
+		if (playerData.UnlockedDifficults.Contains(difficult))
 		{
 			return;
 		}
 
-		_data.UnlockedDifficults.Add(difficult);
+		playerData.UnlockedDifficults.Add(difficult);
 		_unlockedDifficult.Invoke(difficult);
 	}
 
 	public void AddAchievement(Achievement achievement)
 	{
-		if (_data.UnlockedAchievemetns.Contains(achievement.name))
+		if (playerData.UnlockedAchievemetns.Contains(achievement.name))
 		{
 			return;
 		}
 
-		_data.UnlockedAchievemetns.Add(achievement.name);
+		playerData.UnlockedAchievemetns.Add(achievement.name);
 		_achievementAdded.Invoke(achievement);
 	}
 
-	private void Awake()
+	protected new void Awake()
 	{
+		base.Awake();
 		if (_instance != null)
 		{
 			Destroy(gameObject);
@@ -59,11 +58,6 @@ public class PlayerDataContainer : MonoBehaviour
 		_instance = this;
 		LoadPlayerData();
 		DontDestroyOnLoad(gameObject);
-		IsMobileDeviceCheck();
-	}
-	private void IsMobileDeviceCheck()
-	{
-		Debug.Log("Проверка мобильного устройства");
 	}
 
 	private void OnEnable()
@@ -78,7 +72,7 @@ public class PlayerDataContainer : MonoBehaviour
 
 	private void OnDisable()
 	{
-		if (_data == null || SelectedDifficult == null || MouseSensivity == null || AudioIsEnabled == null || CoinCount == null || HintCount == null || IsFirstPlay == null)
+		if (playerData == null || SelectedDifficult == null || MouseSensivity == null || AudioIsEnabled == null || CoinCount == null || HintCount == null || IsFirstPlay == null)
 		{
 			return;
 		}
@@ -104,32 +98,32 @@ public class PlayerDataContainer : MonoBehaviour
 			return;
 		}
 #endif
-		_data.SelectedDifficult =  SelectedDifficult.Value;
-		_data.MouseSensivity = MouseSensivity.Value;
-		_data.AudioIsEnabled = AudioIsEnabled.Value;
-		_data.CoinCount = CoinCount.Value;
-		_data.HintCount = HintCount.Value;
-		_data.IsFirstPlay = IsFirstPlay.Value;
+		playerData.SelectedDifficult =  SelectedDifficult.Value;
+		playerData.MouseSensivity = MouseSensivity.Value;
+		playerData.AudioIsEnabled = AudioIsEnabled.Value;
+		playerData.CoinCount = CoinCount.Value;
+		playerData.HintCount = HintCount.Value;
+		playerData.IsFirstPlay = IsFirstPlay.Value;
 
 		SavePlayerData();
 	}
 
-	private void LoadPlayerData()
-	{
-		SelectedDifficult = new(_data.SelectedDifficult);
-		MouseSensivity = new(_data.MouseSensivity);
-		AudioIsEnabled = new(_data.AudioIsEnabled);
-		CoinCount = new(_data.CoinCount);
-		HintCount = new(_data.HintCount);
-		IsFirstPlay = new(_data.IsFirstPlay);
-		IsFirstPlay = new(_data.IsFirstPlay);
-
-		Debug.Log("Загрузка данных игрока.");
-	}
-
 	public static void SavePlayerData()
 	{
-		Debug.Log("Сохранение данных игрока");
+		_instance.Save();
+	}
+
+	private void LoadPlayerData()
+	{
+		Debug.Log("Загрузка данных игрока");
+
+		SelectedDifficult = new(playerData.SelectedDifficult);
+		MouseSensivity = new(playerData.MouseSensivity);
+		AudioIsEnabled = new(playerData.AudioIsEnabled);
+		CoinCount = new(playerData.CoinCount);
+		HintCount = new(playerData.HintCount);
+		IsFirstPlay = new(playerData.IsFirstPlay);
+		IsFirstPlay = new(playerData.IsFirstPlay);
 	}
 
 #if UNITY_EDITOR
@@ -138,17 +132,17 @@ public class PlayerDataContainer : MonoBehaviour
 
 	private void OnValidate()
 	{
-		if (_data == null || SelectedDifficult == null || MouseSensivity == null || AudioIsEnabled == null || CoinCount == null || HintCount == null || IsFirstPlay == null)
+		if (playerData == null || SelectedDifficult == null || MouseSensivity == null || AudioIsEnabled == null || CoinCount == null || HintCount == null || IsFirstPlay == null)
 		{
 			return;
 		}
 		uploadData = false;
-		SelectedDifficult.Value = _data.SelectedDifficult;
-		MouseSensivity.Value = _data.MouseSensivity;
-		AudioIsEnabled.Value = _data.AudioIsEnabled;
-		CoinCount.Value = _data.CoinCount;
-		HintCount.Value = _data.HintCount;
-		IsFirstPlay.Value = _data.IsFirstPlay;
+		SelectedDifficult.Value = playerData.SelectedDifficult;
+		MouseSensivity.Value = playerData.MouseSensivity;
+		AudioIsEnabled.Value = playerData.AudioIsEnabled;
+		CoinCount.Value = playerData.CoinCount;
+		HintCount.Value = playerData.HintCount;
+		IsFirstPlay.Value = playerData.IsFirstPlay;
 		uploadData = true;
 	}
 #endif

@@ -28,7 +28,7 @@ public class EscMenu : MonoBehaviour
 		_menu.SetActive(true);
 	}
 	private void CloseEscMenu(InputAction.CallbackContext context) => CloseEscMenu();
-	private void CloseEscMenu()
+	public void CloseEscMenu()
 	{
 		Time.timeScale = 1f;
 		InputSingletone.Instance.PlayerMovement.Enable();

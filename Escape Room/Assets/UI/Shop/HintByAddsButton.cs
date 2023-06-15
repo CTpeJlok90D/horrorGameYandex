@@ -16,7 +16,7 @@ public class HintByAddsButton : MonoBehaviour
 
 	private void OnClick()
 	{
-		Debug.Log("Тут могла быть ваша реклама");
+		PlayerDataContainer.Instance.ShowBannerAd();
 		PlayerDataContainer.Instance.HintCount.Value += 1;
 	}
 }

@@ -13,15 +13,25 @@ public class QuestLine : MonoBehaviour
 	[SerializeField] private UnityEvent _complited = new();
 	[SerializeField] private UnityEvent<Quest> _questChanged = new();
 	[SerializeField] private int _currentQuestIndex = 0;
+
+	public delegate void OnLineStart();
+	private event OnLineStart _started;
+
 	private bool _isStarted = false;
 	public Quest CurrentQuest => _quests[_currentQuestIndex];
 	public UnityEvent Complited => _complited;
 	public UnityEvent<Quest> QuestChanged => _questChanged;
+	public event OnLineStart Started
+	{
+		add => _started += value;
+		remove => _started -= value;
+	}
 	public bool IsStarted => _isStarted;
 
 	public void StartLine()
 	{
 		_isStarted = true;
+		_started?.Invoke();
 		BeginQuest(0);
 	}
 

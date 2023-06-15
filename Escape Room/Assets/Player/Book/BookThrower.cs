@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -11,6 +12,7 @@ public class BookThrower : MonoBehaviour
 	[SerializeField] private Vector3 _bookRotation;
 	[SerializeField] private UnityEvent<Book> _throwed;
 	[SerializeField] private UnityEvent<Book> _pickedUp;
+	[SerializeField] private Vector3 _forceDirection;
 	private Book _book;
 
 	public UnityEvent<Book> Throwed => _throwed;
@@ -30,7 +32,7 @@ public class BookThrower : MonoBehaviour
 	[ContextMenu("Add book")]
 	public void AddBook(Book book)
 	{
-		if (Application.isPlaying == false)
+		if (_book != null || Application.isPlaying == false)
 		{
 			return;
 		}
@@ -52,7 +54,7 @@ public class BookThrower : MonoBehaviour
 		}
 		_book.transform.SetParent(null);
 		_book.Rigidbody.isKinematic = false;
-		_book.Rigidbody.AddForce(transform.forward * _throwStrench);
+		_book.Rigidbody.AddForce(transform.TransformDirection(_forceDirection).normalized * _throwStrench);
 		_throwed.Invoke(_book);
 		_book = null;
 	}
