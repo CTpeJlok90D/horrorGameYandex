@@ -30,6 +30,10 @@ public class QuestLine : MonoBehaviour
 
 	public void StartLine()
 	{
+		if (_isStarted)
+		{
+			return;
+		}
 		_isStarted = true;
 		_started?.Invoke();
 		BeginQuest(0);
